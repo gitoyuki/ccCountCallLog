@@ -22,7 +22,7 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: python3.9
+  runtime: python3.8
   lambdaHashingVersion: 20201221
 
  # you can overwrite defaults here
@@ -52,16 +52,21 @@ provider:
 #    variable1: value1
 
 # you can add packaging information here
-#package:
-#  patterns:
-#    - '!exclude-me.py'
-#    - '!exclude-me-dir/**'
-#    - include-me.py
+package:
+  patterns:
+    - '!.envrc'
+    - '!.idea/**'
+    - '!node_modules/**'
 #    - include-me-dir/**
 
 functions:
   hello:
     handler: handler.hello
+    layers:
+      - arn:aws:lambda:ap-northeast-1:770693421928:layer:Klayers-python38-pandas:45
+      - arn:aws:lambda:ap-northeast-1:770693421928:layer:Klayers-python38-numpy:23
+    events:
+      - http: GET cccount
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -100,7 +105,7 @@ functions:
 
 #    Define function environment variables here
 #    environment:
-#      variable2: value2
+#      MY_SECRET: ${env:MY_SECRET}
 
 # you can add CloudFormation resource templates here
 #resources:
@@ -113,3 +118,11 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
+

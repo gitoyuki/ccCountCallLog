@@ -1,4 +1,5 @@
 import json
+from analytics_cc_count import ccCount, toAlpha
 
 
 def hello(event, context):
@@ -6,6 +7,8 @@ def hello(event, context):
         "message": "Go Serverless v1.0! Your function executed successfully!",
         "input": event
     }
+
+    ccCount()
 
     response = {
         "statusCode": 200,
@@ -22,3 +25,17 @@ def hello(event, context):
         "event": event
     }
     """
+
+#
+# def test():
+#     import pandas as pd
+#     import numpy as np
+#     import gspread as gs
+#     from oauth2client.service_account import ServiceAccountCredentials
+#     # from gspread_dataframe import get_as_dataframe, set_with_dataframe
+#
+#     print(pd)
+#     print(np)
+#     print(gs)
+#     print(ServiceAccountCredentials)
+#     # print(get_as_dataframe)
